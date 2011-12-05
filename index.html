@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+    
+    <script type='text/javascript' src='./js/pixastic.custom.js'></script>
+    <script type='text/javascript' src="http://connect.facebook.net/en_US/all.js"></script>
+    <script type='text/javascript' src="./js/jquery.getimagedata.min.js"></script>
+    
+    <script type='text/javascript' src='./js/mosaic.js'></script>
+    <script type='text/javascript' src='./js/facebook.js'></script>
+    <script type='text/javascript' src='./js/interactive.js'></script>
+</head>
+
+<body>
+    <div id="fb-root"></div>
+    <div id="original"></div>
+    <div id="mosaic"></div>
+    <div id="controls">
+        <button type="button" onclick="javascript:fetchMorePhotos();">load more photos</button>
+        <input type="text" id="rows" class="twodigits" value="1" /> x <input type="text" id="cols" class="twodigits" value="1" />
+        <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
+        <button type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+    </div>
+    <div id="stats"></div>
+    <div id="log"></div>
+</body>
+</html>
