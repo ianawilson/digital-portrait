@@ -164,13 +164,16 @@ function cropToAspectRatio(image, x, y) {
 	} else {
 		ratio = xRatio;
 	}
+	log(ratio)
 	newX = x * ratio;
 	newY = y * ratio;
+	log('new: ' + newX + ', ' + newY)
 	
 	marginX = Math.round((image.width - newX) / 2);
 	marginY = Math.round((image.height - newY) / 2);
+	log('margin: ' + marginX + ', ' + marginY)
 	
-	Pixastic.process(image, "crop", {rect: {top: marginX, left: marginY, width: newX, height: newY}});
+	Pixastic.process(image, "crop", {rect: {top: marginY, left: marginX, width: newX, height: newY}});
 }
 
 function cropToExactSize(image, x, y) {
@@ -178,13 +181,39 @@ function cropToExactSize(image, x, y) {
 	marginX = Math.round((image.width - x) / 2);
 	marginY = Math.round((image.height - y) / 2);
 	
-	Pixastic.process(image, "crop", {rect: {top: marginX, left: marginY, width: x, height: y}});
+	Pixastic.process(image, "crop", {rect: {top: marginY, left: marginX, width: newX, height: newY}});
 }
 
 function makeAndDisplayMosaic(rows, cols) {
 	mat = makeImageMosaicMatrix(profileImg, photos, rows, cols);
 	reset();
 	drawMosaicImages(mat);
+}
+
+function findIdealDimensions(image, numOfImages) {
+	log('Finding ideal dimensions ...');
+	
+	width = image.width;
+	height = image.height;
+	
+	ratio = width / height;
+	foundBest = false;
+	rows = 0;
+	cols = 0;
+	do {
+		if (rows * cols > numOfImages) {
+			foundBest = true;
+		} else {
+			bestRows = rows;
+			bestCols = cols;
+			
+			rows++;
+			cols = Math.floor(rows * ratio);
+		}
+	} while ( !foundBest );
+	
+	log('Ideal dimensions: ' + bestRows + ' rows and ' + bestCols + ' columns.');
+	return [bestRows, bestCols];
 }
 
 function reset() {

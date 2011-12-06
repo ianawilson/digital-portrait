@@ -1,3 +1,14 @@
+$(document).ready(interactiveInit)
+
+function interactiveInit() {
+	$("button").mouseover(function() {
+		$(this).addClass("mouseover");
+	});
+	$("button").mouseout(function() {
+		$(this).removeClass("mouseover");
+	});
+}
+
 function log(message) {
 	console.log(message);
 	
@@ -15,6 +26,12 @@ function newMosaic() {
 	rows = $("#rows").val();
 	cols = $("#cols").val();
 	makeAndDisplayMosaic(rows, cols);
+}
+
+function newIdealMosaic() {
+	dim = findIdealDimensions(profileImg, photos.length)
+	log(dim)
+	makeAndDisplayMosaic(dim[0], dim[1]);
 }
 
 function showHideOriginal() {

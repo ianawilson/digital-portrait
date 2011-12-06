@@ -11,6 +11,8 @@ TODO
  - should i stop it from re-using images? it should be doing that right now, but i'm not sure it works ...
  - fetch more photos should have an optional arg to set the limit to something besides 25
  - check or radio boxes for whether or not to use all photos or just tagged or both 
+ - Mozilla gradient for log
+ - center original over mosaic
 
 
 Notes

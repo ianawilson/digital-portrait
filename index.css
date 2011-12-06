@@ -1,6 +1,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Ubuntu Mono', sans-serif;
 }
 
 #content {
@@ -18,6 +19,15 @@ html, body {
 	clear: both;
 }
 
+#content {
+	margin-left:auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+#mosaic {
+}
+
 #original {
 	position: absolute;
 	opacity: 0.4;
@@ -27,28 +37,54 @@ html, body {
 /* floating stuff */
 #log {
 	width: 300px;
-	height: 60px;
-	overflow-y: scroll;
+	max-height: 600px;
+	overflow-y: hidden;
 	position: absolute;
-	bottom: 0px;
-	right: 0px;
+	bottom: 10px;
+	right: 10px;
+	color: #555;
+	font-size: 0.7em;
+	vertical-align: bottom;
+	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
 }
 
 #stats {
-	width: 150px;
-	height: 25px;
+/*	width: 150px;*/
+/*	height: 25px;*/
 	position: absolute;
-	bottom: 0px;
-	right: 310px;
+	top: 10px;
+	right: 10px;
+	color: #888;
 }
 
 #controls {
 /*	width: 500px;*/
 /*	text-align: right;*/
-	height: 25px;
+/*	height: 25px;*/
+	text-align: center;
 	position: absolute;
-	bottom: 0px;
-	right: 470px;
+	top: 25px;
+	left: 75px;
+}
+
+#mosaic-controls {
+	display: none;
+}
+
+.control {
+	margin-bottom: 30px;
+}
+
+button {
+/*	background-color: #BBB;*/
+	font-family: 'Ubuntu Mono', sans-serif;
+	font-size: 1em;
+	border: 0;
+}
+
+.mouseover {
+	background: #DDD;
+	cursor: pointer;
 }
 
 .twodigits {

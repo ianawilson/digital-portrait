@@ -2,6 +2,7 @@
 
 <head>
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
     
     <script type='text/javascript' src='./js/pixastic.custom.js'></script>
@@ -15,15 +16,29 @@
 
 <body>
     <div id="fb-root"></div>
-    <div id="original"></div>
-    <div id="mosaic"></div>
-    <div id="controls">
-        <button type="button" onclick="javascript:fetchMorePhotos();">load more photos</button>
-        <input type="text" id="rows" class="twodigits" value="1" /> x <input type="text" id="cols" class="twodigits" value="1" />
-        <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
-        <button type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+    <div id="content">
+        <div id="original"></div>
+        <div id="mosaic"></div>
     </div>
-    <div id="stats"></div>
-    <div id="log"></div>
+    <div id="controls">
+        <div class="control">
+            <button id="fetch-button" type="button" onclick="javascript:fetchMorePhotos();">load more photos</button>
+        </div>
+        <div class="control">
+            <button id="ideal-mosaic-controls" type="button" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
+        </div>
+        <div class="control">
+            <button id="original-button" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+        </div>
+        <div id="mosaic-controls" class="control">
+            rows <input type="text" id="rows" class="twodigits" value="1" /> x cols <input type="text" id="cols" class="twodigits" value="1" />
+            <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
+        </div>
+    </div>
+    <div id="stats">0 photo(s) loaded</div>
+    <div id="log">
+        <!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
+    </div>
 </body>
 </html>

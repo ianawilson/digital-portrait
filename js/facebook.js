@@ -50,6 +50,9 @@ function fetchProfilePhoto() {
 							profileImg = image;
 							$("#original").append(profileImg);
 							log('Finished fetching profile picture.');
+							// set content height and width based on picture
+							$("#content").height($("#original").height() + 10);
+							$("#content").width($("#original").width() + 10);
 						},
 						error: function (xhr, text_status) {
 							
@@ -61,9 +64,9 @@ function fetchProfilePhoto() {
 	}); // end of getting my albums
 }
 
-function fetchMorePhotos() {
+function fetchMorePhotos(limit) {
 	log('Fetching more photos ...');
-	FB.api('/me/photos', {'offset': photos.length}, function(response) {
+	FB.api('/me/photos', {'offset': photos.length, 'limit': limit}, function(response) {
 		log('Fetched ' + response.data.length + ' additional photos.');
 		fetchCount = 1; // for success callback; if you use pic, they are all 24
 		for (pic in response.data) {
