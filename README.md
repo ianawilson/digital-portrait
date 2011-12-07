@@ -9,10 +9,13 @@ TODO
 
  - slider bar for how opaque / transparent profile picture is
  - should i stop it from re-using images? it should be doing that right now, but i'm not sure it works ...
- - fetch more photos should have an optional arg to set the limit to something besides 25
  - check or radio boxes for whether or not to use all photos or just tagged or both 
- - Mozilla gradient for log
+ - Mozilla gradient for #log
  - center original over mosaic
+ - fix layout for all aspect ratios of profile images
+ - instructions, explanation
+ - way to keep the user from pulling the trigger too early? (might be instructions or loading symbols)
+ - only loads 5000 friends
 
 
 Notes

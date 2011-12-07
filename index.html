@@ -16,29 +16,63 @@
 
 <body>
     <div id="fb-root"></div>
-    <div id="content">
-        <div id="original"></div>
-        <div id="mosaic"></div>
+    
+    <div id="app">
+        <div id="content">
+            <div id="original"></div>
+            <div id="mosaic"></div>
+        </div>
+        <div id="controls">
+            <h2>image control</h2>
+            <div class="control">
+                <button id="ideal-mosaic-controls" type="button" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
+            </div>
+            <div id="mosaic-controls" class="control">
+                rows <input type="text" id="rows" class="twodigits" value="1" /> x cols <input type="text" id="cols" class="twodigits" value="1" />
+                <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
+            </div>
+            <div class="control">
+                <button id="original-button" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+            </div>
+            <h2>load photos of your friends</h2>
+            <!-- <div class="control">
+                <button id="fetch-button" type="button" onclick="javascript:fetchMyPhotos();">load all of my photos</button>
+            </div> -->
+            <!-- <div class="control">
+                <button id="friends-fetch-button" type="button" onclick="javascript:displayFriends();">load pictures of friends</button>
+            </div> -->
+            <div class="control">
+                <input id="friend-filter" type="text" title="type to search for friends" />
+                <ul id="friend-list">
+                    
+                </ul>
+            </div>
+            <h2>information and logout</h2>
+            <div id="welcome-button" class="control">
+                <button type="button" onclick="javascript:fadeToWelcome();">return to welcome screen</button>
+            </div>
+        </div>
+        <div id="stats">0 photo(s) loaded</div>
+        <div id="log"></div>
     </div>
-    <div id="controls">
-        <div class="control">
-            <button id="fetch-button" type="button" onclick="javascript:fetchMorePhotos();">load more photos</button>
+    <div id="welcome">
+        <div id="login">
+            <p>To use this application please</p>
+            <!-- <div class="fb-login-button" scope="user_photos,friends_photos">Login with Facebook</div> -->
+            <a id="login-button" class="fb_button fb_button_medium">
+                <span class="fb_button_text">Login with Facebook</span>
+            </a>
         </div>
-        <div class="control">
-            <button id="ideal-mosaic-controls" type="button" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
+        <div id="logout">
+            <p id="greeting">Logged in as </p>
+            <a id="logout-button" class="fb_button fb_button_medium">
+                <span class="fb_button_text">Logout</span>
+            </a>
         </div>
-        <div class="control">
-            <button id="original-button" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+        <div id="info">
+            <p>Your profile picture is often quintessential of your online existence. Do the rest of the images attached to your digital self add up to it?</p> <p>Does any of that add up to you?</p>
+            <button id="continue" type="button" onclick="javascript:fadeToApp();">continue to application</button>
         </div>
-        <div id="mosaic-controls" class="control">
-            rows <input type="text" id="rows" class="twodigits" value="1" /> x cols <input type="text" id="cols" class="twodigits" value="1" />
-            <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
-        </div>
-    </div>
-    <div id="stats">0 photo(s) loaded</div>
-    <div id="log">
-        <!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
     </div>
 </body>
 </html>
