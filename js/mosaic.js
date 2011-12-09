@@ -91,6 +91,8 @@ function drawMosaicImages(matrix) {
 		}
 		$("#mosaic").append(currentRow);
 	}
+	$("#mosaic-loading").hide(100);
+	$("#ideal-mosaic-control").show(100);
 }
 
 function makeImageMosaicMatrix(template, originalImages, rows, cols) {
@@ -164,14 +166,14 @@ function cropToAspectRatio(image, x, y) {
 	} else {
 		ratio = xRatio;
 	}
-	log(ratio)
+	// log(ratio)
 	newX = x * ratio;
 	newY = y * ratio;
-	log('new: ' + newX + ', ' + newY)
+	// log('new: ' + newX + ', ' + newY)
 	
 	marginX = Math.round((image.width - newX) / 2);
 	marginY = Math.round((image.height - newY) / 2);
-	log('margin: ' + marginX + ', ' + marginY)
+	// log('margin: ' + marginX + ', ' + marginY)
 	
 	Pixastic.process(image, "crop", {rect: {top: marginY, left: marginX, width: newX, height: newY}});
 }

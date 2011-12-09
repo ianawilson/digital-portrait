@@ -34,6 +34,10 @@ html, body {
 	opacity: 0.4;
 }
 
+#profile-loading {
+	margin-top: 250px;
+}
+
 
 /**
  * Controls and Stats
@@ -56,18 +60,29 @@ html, body {
 	top: 10px;
 	right: 10px;
 	color: #888;
+	text-align: right;
+	padding: 3px;
+}
+
+.hidden {
+	display: none;
+}
+
+.look-here {
+	background: rgba(250, 248, 190, 0.8);
+	
 }
 
 #controls {
 	position: absolute;
 	top: 5px;
 	left: 25px;
+	width: 250px;
 }
 
 h2 {
 	font-size: 0.9em;
 	padding: 0 15px 0;
-	
 	border-bottom: 1px solid #666;
 }
 
@@ -78,9 +93,40 @@ h2 {
 	color: #a1a1a1;
 	font-style: italic;
 }
-#friend-list li {
+#friend-instructions {
 	display: none;
+	font-size: 0.6em;
+	color: #999;
 }
+#friend-list {
+	padding: 0 5px 0;
+	max-height: 300px;
+	overflow: auto;
+}
+#friend-list li {
+	list-style-type: none;
+}
+.friend {
+	display: block;
+	display: none;
+	margin: 1px;
+	cursor: pointer;
+	background: #DDD;
+}
+.friend-profile {
+	height: 25px;
+	vertical-align: -8px;
+}
+.friend-name {
+	height: 100%;
+}
+
+
+
+.loading-div {
+	text-align: center;
+}
+
 
 #mosaic-controls {
 	display: none;

@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="index.css" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
+    <script type='text/javascript' src='./js/jquery.color.js'></script>
     
     <script type='text/javascript' src='./js/pixastic.custom.js'></script>
     <script type='text/javascript' src="http://connect.facebook.net/en_US/all.js"></script>
@@ -21,11 +23,16 @@
         <div id="content">
             <div id="original"></div>
             <div id="mosaic"></div>
+            <div class="loading-div"><img id="profile-loading" src="wait30.gif" /></div>
         </div>
         <div id="controls">
             <h2>image control</h2>
             <div class="control">
-                <button id="ideal-mosaic-controls" type="button" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
+                <button id="ideal-mosaic-control" type="button" class="hidden" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
+                <div class="loading-div">
+                    <img id="photos-loading" src="wait30.gif" />
+                    <span id="mosaic-loading" class="hidden">... building mosaic ...<br />[please be patient]</span>
+                </div>
             </div>
             <div id="mosaic-controls" class="control">
                 rows <input type="text" id="rows" class="twodigits" value="1" /> x cols <input type="text" id="cols" class="twodigits" value="1" />
@@ -42,17 +49,22 @@
                 <button id="friends-fetch-button" type="button" onclick="javascript:displayFriends();">load pictures of friends</button>
             </div> -->
             <div class="control">
-                <input id="friend-filter" type="text" title="type to search for friends" />
-                <ul id="friend-list">
-                    
-                </ul>
+                <input id="friend-filter" type="text" title="type to search for friends" class="hidden" />
+                <div id="friend-instructions">
+                    Choose a friend to load their photos. Friends who do not allow their photos to be used by external applications will not appear.
+                </div>
+                <div class="loading-div"><img id="friend-loading" src="wait30.gif" /></div>
+                <ul id="friend-list"></ul>
             </div>
             <h2>information and logout</h2>
             <div id="welcome-button" class="control">
                 <button type="button" onclick="javascript:fadeToWelcome();">return to welcome screen</button>
             </div>
         </div>
-        <div id="stats">0 photo(s) loaded</div>
+        <div id="stats">
+            <div id="photo-stats">0 photo(s) loaded</div>
+            <div id="friend-stats">0 friend(s) loaded</div>
+        </div>
         <div id="log"></div>
     </div>
     <div id="welcome">

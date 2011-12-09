@@ -23,7 +23,32 @@ function interactiveInit() {
 		}
 	});
 	$("input").blur();
+	
+	// set up the friend filter
+	$('#friend-filter').change(function() {
+		var filter = $(this).val();
+		list = $("#friend-list");
+		instructions = $("#friend-instructions");
+		if (filter) {
+			instructions.slideDown();
+			list.find("li:not(:Contains(" + filter + "))").slideUp();
+			// only get the ones with images
+			list.find("li:Contains(" + filter + ")").children('img').parents().slideDown();
+		} else {
+			instructions.slideUp();
+			list.find("li").slideUp();
+		}
+	});
+	$('#friend-filter').keyup(function() {
+		$(this).change();
+	});
 }
+
+// defining custom Contains
+// taken from http://kilianvalkhof.com/2010/javascript/how-to-build-a-fast-simple-list-filter-with-jquery/
+jQuery.expr[':'].Contains = function(a,i,m){
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+};
 
 function log(message) {
 	console.log(message);
@@ -40,9 +65,13 @@ function newMosaic() {
 	makeAndDisplayMosaic(rows, cols);
 }
 function newIdealMosaic() {
-	dim = findIdealDimensions(profileImg, photos.length);
-	log(dim);
-	makeAndDisplayMosaic(dim[0], dim[1]);
+	$("#ideal-mosaic-control").hide(100, function() {
+		$("#mosaic-loading").show(100, function() {
+			dim = findIdealDimensions(profileImg, photos.length);
+			// log(dim);
+			makeAndDisplayMosaic(dim[0], dim[1]);
+		});
+	});
 }
 function showHideOriginal() {
 	$("#original").fadeToggle(300);
@@ -53,4 +82,27 @@ function fadeToApp() {
 }
 function fadeToWelcome() {
 	$("#welcome").fadeIn(300);
+}
+function lookHere() {
+	lastLook = Date.now();
+	// we don't want to animate if the last one was very recent (and we're looking for it)
+	if (! checkingForLastLook) {
+		$("#stats").animate({'background-color': $.Color('rgba(250, 248, 100, 0.8)')}, 150);
+		checkingForLastLook = true;
+		checkForLastLook();
+	}
+}
+
+function checkForLastLook() {
+	if (Date.now() - lastLook > 1000) {
+		checkingForLastLook = false;
+		console.log('fade out');
+		$("#stats").animate(
+			{'background-color': $.Color('rgba(255, 255, 255, 0)')},
+			300
+		);
+	} else {
+		console.log('check again in 500ms');
+		setTimeout(checkForLastLook, 500);
+	}
 }
