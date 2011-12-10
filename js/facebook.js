@@ -243,7 +243,7 @@ function friendSort(a, b) {
 function fetchPhotosOfFriend(friendID, friendName) {
 	console.log(friendID);
 	fetchCount['' + friendID] = 0;
-	log('Fetching photos of friend with id ' + friendID + ' ...');
+	log('Fetching photos of friend ' + friendID + ' ...');
 	FB.api('/' + friendID + '/photos', {'limit': 250}, function(response) {
 		log('Fetched ' + response.data.length + ' additional photos.');
 		$("#friend-loading").hide();
