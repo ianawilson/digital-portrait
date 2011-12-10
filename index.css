@@ -124,6 +124,10 @@ h1 {
 
 h2 {
 	font-family: 'Ubuntu Mono', sans-serif;
+}
+
+h3 {
+	font-family: 'Ubuntu Mono', sans-serif;
 	font-size: 0.9em;
 	padding: 0 15px 0;
 	border-bottom: 1px solid #666;
@@ -221,7 +225,7 @@ button {
 	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 350px;
+	width: 450px;
 }
 #continue {
 	display: none;

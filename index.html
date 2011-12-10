@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <title>Ian A Wilson - Social Digital Portrait</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
@@ -32,15 +33,15 @@
         <div id="left-backdrop" class="backdrop"></div>
         
         <div id="instructions">
-            <h1>start here</h1>
+            <h2>start here</h2>
             <!-- <div class="large-note aboveOverlay">Click any of the following to highlight the relevant control.</div> -->
-            <h2>we load your info</h2>
+            <h3>we load your info</h3>
             <div class="instruct instruct-stats">Make sure your photos and friends are completely loaded.
                 <div class='note'>It's likely that not all of your friends will load
                 because some have probably disabled access to their information in third-party apps.</div>
             </div>
             
-            <h2>load photos of your friends</h2>
+            <h3>load photos of your friends</h3>
             <div id="friends">To load more photos, search for
                 a friend. Clicking on them will load photos of that person.
                 <input id="friend-filter" type="text" title="type to search for friends" class="hidden" />
@@ -50,7 +51,7 @@
                 <div class="loading-div"><img id="friend-loading" src="wait30.gif" /></div>
                 <ul id="friend-list"></ul>
             </div>
-            <h2 class="">build your mosaic</h2>
+            <h3 class="">build your mosaic</h3>
             <div class="">Once you have 300 - 1000 photos, build your mosaic.
                 <div>
                     <button id="load-mosaic" type="button" class="hidden" onclick="javascript:newIdealMosaic();">build ideal mosaic</button>
@@ -60,18 +61,18 @@
                     </div>
                 </div>
             </div>
-            <h2>explore your mosaic</h2>
+            <h3>explore your mosaic</h3>
             <div class="">Try turning the transparent original of your profile picture off to
                 to see how close the mosaic is to it.
                 <div class="control">
                     <button id="toggle-original" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
                 </div>
             </div>
-            <h2>get more photos</h2>
+            <h3>get more photos</h3>
             <div class="instruct instruct-friends instruct-mosaic">
                 Want more detail? Load more friends and rebuild your mosaic.
             </div>
-            <h2>information and logout</h2>
+            <h3>information and logout</h3>
             <div id="welcome-button" class="control">
                 <button type="button" onclick="javascript:fadeToWelcome();">return to welcome screen</button>
             </div>
@@ -91,6 +92,7 @@
     </div>
     <div id="welcome">
         <div id="info">
+            <h1>social digital portrait</h1>
             <p>Your profile picture is the essence of your online existence. How well does this represent the rest of the images of your digital self?</p> <p>How well does any of that represent you?</p>
         </div>
         <div id="login">
