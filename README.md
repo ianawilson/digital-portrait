@@ -9,10 +9,13 @@ TODO
 
  - slider bar for how opaque / transparent profile picture is
  - Mozilla gradient for #log
- - center original over mosaic
  - fix layout for all aspect ratios of profile images
- - instructions, explanation
- - only loads 5000 friends
+ - first time, profile picture doesn't load without refresh
+ - short timeout for mouseout (100ms) ?
+ - remove already used friends from list
+ - Uncaught TypeError: Cannot read property 'from' of undefined @ facebook.js:213
+ - enforce minimum width for the browser window
+ 
 
 
 Notes

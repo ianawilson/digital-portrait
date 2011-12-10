@@ -1,5 +1,10 @@
 $(document).ready(interactiveInit)
 
+// var borderColor = '204, 0, 51,'
+var borderColor = '230, 32, 32,'
+var borderColorOn = $.Color('rgb(' + borderColor +' 1)');
+var borderColorOff = $.Color('rgb(' + borderColor +' 0)');
+
 function interactiveInit() {
 	// set all button mouseover properties
 	$("button").mouseover(function() {
@@ -42,6 +47,14 @@ function interactiveInit() {
 	$('#friend-filter').keyup(function() {
 		$(this).change();
 	});
+	
+	initInstructions();
+	
+	$('.instruct').hover(function() {
+		$(this).addClass('mouseover');
+	}, function() {
+		$(this).removeClass('mouseover');
+	});
 }
 
 // defining custom Contains
@@ -65,11 +78,13 @@ function newMosaic() {
 	makeAndDisplayMosaic(rows, cols);
 }
 function newIdealMosaic() {
-	$("#ideal-mosaic-control").hide(100, function() {
+	$("#load-mosaic").hide(100, function() {
 		$("#mosaic-loading").show(100, function() {
 			dim = findIdealDimensions(profileImg, photos.length);
 			// log(dim);
 			makeAndDisplayMosaic(dim[0], dim[1]);
+			$("#mosaic-loading").hide(100);
+			$("#load-mosaic").show(100);
 		});
 	});
 }
@@ -104,5 +119,57 @@ function checkForLastLook() {
 	} else {
 		console.log('check again in 500ms');
 		setTimeout(checkForLastLook, 500);
+	}
+}
+
+function initInstructions() {
+	// set up instruction help
+	instructionPairs = [
+		['instruct-stats', '#stats'],
+		['instruct-friends', '#friends'],
+		['instruct-load-mosaic', '#load-mosaic'],
+		['instruct-toggle-original', '#toggle-original']
+	];
+	instructables = [];
+	for (i in instructionPairs) {
+		instructables.push(instructionPairs[i][1]);
+	}
+	
+	// click handler
+	$('.instruct').click(function(e) {
+		// if the overlay is open, close it, remove aboveOverlay class
+		if ($("#overlay").is(":visible")) {
+			$('#overlay').fadeOut(150);
+			for (i in instructables) {
+				$(instructables[i]).removeClass('aboveOverlay').removeClass('highlighted');
+			}
+			
+		} else {
+			$(this).addClass('aboveOverlay');
+			$('#overlay').fadeIn(150);
+			for (i in instructionPairs) {
+				if ($(this).hasClass(instructionPairs[i][0])) {
+					$(instructionPairs[i][1]).addClass('aboveOverlay').addClass('highlighted');
+				}
+			}
+		}
+	});
+	
+	// use hover handler, since it deals with children elements better
+	// and use no hover over function
+	$('.instruct').hover(function() {}, function() {
+		$('#overlay').fadeOut(150);
+		$(this).removeClass('aboveOverlay');
+		for (i in instructables) {
+			$(instructables[i]).removeClass('aboveOverlay').removeClass('highlighted');
+		}
+	});
+}
+
+
+function readyForMosaic() {
+	if (profileReady && photosReady) {
+		$("#photos-loading").hide();
+		$("#load-mosaic").show();
 	}
 }

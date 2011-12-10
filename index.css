@@ -1,8 +1,27 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Ubuntu Mono', sans-serif;
+	font-family: 'Optima', sans-serif;
+	background-color: #EEE;
 }
+
+/* backdrops */
+
+.backdrop {
+	position: fixed;
+	width: 290px;
+	height: 100%;
+	top: 0px;
+	background-color: white;
+}
+#left-backdrop {
+	left: 0px;
+}
+#right-backdrop {
+	right: 0px;
+}
+
+
 
 #app {
 	height: 100%;
@@ -24,14 +43,20 @@ html, body {
  **/
 
 #content {
-	margin-left:auto;
-	margin-right: auto;
+	padding-left: 270px;
+	padding-right: 270px;
 	height: 100%;
+	text-align: center;
 }
 
 #original {
 	position: absolute;
 	opacity: 0.4;
+	top: 5px;
+	left: 50%;
+}
+#mosaic {
+	padding-top: 5px;
 }
 
 #profile-loading {
@@ -40,10 +65,10 @@ html, body {
 
 
 /**
- * Controls and Stats
+ * Log and Stats
  **/
 #log {
-	width: 300px;
+	width: 260px;
 	max-height: 600px;
 	overflow-y: hidden;
 	position: absolute;
@@ -53,6 +78,7 @@ html, body {
 	font-size: 0.7em;
 	vertical-align: bottom;
 	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
+	font-family: 'Ubuntu Mono', sans-serif;
 }
 
 #stats {
@@ -62,6 +88,7 @@ html, body {
 	color: #888;
 	text-align: right;
 	padding: 3px;
+	font-family: 'Ubuntu Mono', sans-serif;
 }
 
 .hidden {
@@ -73,34 +100,54 @@ html, body {
 	
 }
 
-#controls {
+#instructions {
 	position: absolute;
 	top: 5px;
-	left: 25px;
+	left: 20px;
 	width: 250px;
+	font-size: 0.9em;
+/*	background-color: white;*/
+/*	padding-left: 5px;*/
+}
+
+#instructions div {
+	padding: 2px;
+}
+
+.instruct {
+	background-color: #F6F6F6;
+}
+
+h1 {
+	font-family: 'Ubuntu Mono', sans-serif;
 }
 
 h2 {
+	font-family: 'Ubuntu Mono', sans-serif;
 	font-size: 0.9em;
 	padding: 0 15px 0;
 	border-bottom: 1px solid #666;
 }
 
 #friend-filter {
-	width: 225px;
+	width: 100%;
 }
 .default-text {
 	color: #a1a1a1;
 	font-style: italic;
 }
-#friend-instructions {
-	display: none;
-	font-size: 0.6em;
+.note {
+	font-size: 0.8em;
 	color: #999;
+	padding-left: 5px;
+}
+.large-note {
+	font-size: 0.95em;
+	text-shadow: #888 0.1em 0.1em 0.2em;
 }
 #friend-list {
 	padding: 0 5px 0;
-	max-height: 300px;
+	max-height: 200px;
 	overflow: auto;
 }
 #friend-list li {
@@ -121,19 +168,12 @@ h2 {
 	height: 100%;
 }
 
-
-
 .loading-div {
 	text-align: center;
 }
 
-
-#mosaic-controls {
-	display: none;
-}
-
 .control {
-	margin-bottom: 30px;
+/*	margin: 10px 0 10px;*/
 }
 
 button {
@@ -144,12 +184,15 @@ button {
 }
 
 .mouseover {
-	background: #DDD;
+	background: #EEE;
 	cursor: pointer;
 }
 
 .twodigits {
 	width: 20px;
+}
+#mosaic-loading {
+	font-family: 'Ubuntu Mono', sans-serif;
 }
 
 /**
@@ -165,20 +208,51 @@ button {
 	background: rgba(50, 50, 50, 0.7);
 	color: #FFF;
 	text-align: center;
+	z-index: 50;
 }
 #login, #logout {
-	margin-top: 100px;
+	margin-top: 20px;
 	margin-left: auto;
 	margin-right: auto;
 	width: 300px;
 	display: none;
 }
 #info {
-	margin-top: 40px;
+	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
-	width: 400px;
+	width: 350px;
 }
 #continue {
 	display: none;
+	margin-top: 20px;
+}
+hr {
+	width: 300px;
+}
+
+
+
+
+
+
+
+
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.9);
+	z-index: 10;
+}
+.aboveOverlay {
+	position: relative;
+	z-index: 20;
+}
+.highlighted {
+	/* dark red rgb(230, 32, 32)
+	light yellow #FDFF47*/
+	box-shadow: 0px 0px 30px  #FCFF00;
 }

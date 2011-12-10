@@ -20,71 +20,98 @@
     <div id="fb-root"></div>
     
     <div id="app">
+        <!-- center -->
         <div id="content">
+            <img id="profile-loading" src="wait30trans.gif" />
             <div id="original"></div>
             <div id="mosaic"></div>
-            <div class="loading-div"><img id="profile-loading" src="wait30.gif" /></div>
         </div>
-        <div id="controls">
-            <h2>image control</h2>
-            <div class="control">
-                <button id="ideal-mosaic-control" type="button" class="hidden" onclick="javascript:newIdealMosaic();">make ideal mosaic</button>
-                <div class="loading-div">
-                    <img id="photos-loading" src="wait30.gif" />
-                    <span id="mosaic-loading" class="hidden">... building mosaic ...<br />[please be patient]</span>
-                </div>
+        
+        <!-- left -->
+        
+        <div id="left-backdrop" class="backdrop"></div>
+        
+        <div id="instructions">
+            <h1>start here</h1>
+            <!-- <div class="large-note aboveOverlay">Click any of the following to highlight the relevant control.</div> -->
+            <h2>we load your info</h2>
+            <div class="instruct instruct-stats">Make sure your photos and friends are completely loaded.
+                <div class='note'>It's likely that not all of your friends will load
+                because some have probably disabled access to their information in third-party apps.</div>
             </div>
-            <div id="mosaic-controls" class="control">
-                rows <input type="text" id="rows" class="twodigits" value="1" /> x cols <input type="text" id="cols" class="twodigits" value="1" />
-                <button type="button" onclick="javascript:newMosaic();">new mosaic</button>
-            </div>
-            <div class="control">
-                <button id="original-button" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
-            </div>
+            
             <h2>load photos of your friends</h2>
-            <!-- <div class="control">
-                <button id="fetch-button" type="button" onclick="javascript:fetchMyPhotos();">load all of my photos</button>
-            </div> -->
-            <!-- <div class="control">
-                <button id="friends-fetch-button" type="button" onclick="javascript:displayFriends();">load pictures of friends</button>
-            </div> -->
-            <div class="control">
+            <div id="friends">To load more photos, search for
+                a friend. Clicking on them will load photos of that person.
                 <input id="friend-filter" type="text" title="type to search for friends" class="hidden" />
-                <div id="friend-instructions">
+                <div id="friend-instructions" class="hidden note">
                     Choose a friend to load their photos. Friends who do not allow their photos to be used by external applications will not appear.
                 </div>
                 <div class="loading-div"><img id="friend-loading" src="wait30.gif" /></div>
                 <ul id="friend-list"></ul>
+            </div>
+            <h2 class="">build your mosaic</h2>
+            <div class="">Once you have 300 - 1000 photos, build your mosaic.
+                <div>
+                    <button id="load-mosaic" type="button" class="hidden" onclick="javascript:newIdealMosaic();">build ideal mosaic</button>
+                    <div class="loading-div">
+                        <img id="photos-loading" src="wait30.gif" />
+                        <span id="mosaic-loading" class="hidden">... building mosaic ...<br />[please be patient]</span>
+                    </div>
+                </div>
+            </div>
+            <h2>explore your mosaic</h2>
+            <div class="">Try turning the transparent original of your profile picture off to
+                to see how close the mosaic is to it.
+                <div class="control">
+                    <button id="toggle-original" type="button" onclick="javascript:showHideOriginal();">show/hide original</button>
+                </div>
+            </div>
+            <h2>get more photos</h2>
+            <div class="instruct instruct-friends instruct-mosaic">
+                Want more detail? Load more friends and rebuild your mosaic.
             </div>
             <h2>information and logout</h2>
             <div id="welcome-button" class="control">
                 <button type="button" onclick="javascript:fadeToWelcome();">return to welcome screen</button>
             </div>
         </div>
+        
+        <!-- right -->
+        
+        <div id="right-backdrop" class="backdrop"></div>
+        
         <div id="stats">
-            <div id="photo-stats">0 photo(s) loaded</div>
-            <div id="friend-stats">0 friend(s) loaded</div>
+            <div><span id="stats-photos">0</span> total photo(s) loaded</div>
+            <div><span id="stats-photos-me">0</span> photo(s) of me loaded</div>
+            <div id="stats-friends">0 friend(s) loaded</div>
         </div>
         <div id="log"></div>
+        
     </div>
     <div id="welcome">
+        <div id="info">
+            <p>Your profile picture is the essence of your online existence. How well does this represent the rest of the images of your digital self?</p> <p>How well does any of that represent you?</p>
+        </div>
         <div id="login">
+            <hr />
             <p>To use this application please</p>
-            <!-- <div class="fb-login-button" scope="user_photos,friends_photos">Login with Facebook</div> -->
             <a id="login-button" class="fb_button fb_button_medium">
                 <span class="fb_button_text">Login with Facebook</span>
             </a>
         </div>
         <div id="logout">
+            <hr />
             <p id="greeting">Logged in as </p>
             <a id="logout-button" class="fb_button fb_button_medium">
                 <span class="fb_button_text">Logout</span>
             </a>
         </div>
-        <div id="info">
-            <p>Your profile picture is often quintessential of your online existence. Do the rest of the images attached to your digital self add up to it?</p> <p>Does any of that add up to you?</p>
-            <button id="continue" type="button" onclick="javascript:fadeToApp();">continue to application</button>
+        <div id="continue">
+            <hr />
+            <p><button type="button" onclick="javascript:fadeToApp();">continue to application</button></p>
         </div>
     </div>
+    <div id="overlay" class="hidden"></div>
 </body>
 </html>

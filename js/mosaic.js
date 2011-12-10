@@ -91,8 +91,6 @@ function drawMosaicImages(matrix) {
 		}
 		$("#mosaic").append(currentRow);
 	}
-	$("#mosaic-loading").hide(100);
-	$("#ideal-mosaic-control").show(100);
 }
 
 function makeImageMosaicMatrix(template, originalImages, rows, cols) {
@@ -216,8 +214,4 @@ function findIdealDimensions(image, numOfImages) {
 	
 	log('Ideal dimensions: ' + bestRows + ' rows and ' + bestCols + ' columns.');
 	return [bestRows, bestCols];
-}
-
-function reset() {
-	$("#mosaic").empty();
 }

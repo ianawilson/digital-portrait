@@ -12,7 +12,9 @@ var photos = new Array(0);
 var totalPhotos = 0;
 
 var photosOfMeOffset = 0;
-var fetchCount = 0;
+var fetchCount = {};
+var profileReady = false;
+var photosReady = false;
 
 var profileImg;
 var profileMat;
@@ -51,7 +53,7 @@ function login() {
 function logout() {
 	FB.logout(
 		function (response) {
-			start();
+			window.location.reload();
 		}
 	);
 }
@@ -72,9 +74,10 @@ function updateLogin(authenticated) {
 }
 
 function start() {
+	log('Getting Facebook login status.');
 	FB.getLoginStatus(function(response) {
         if (response.authResponse) {
-			log("User authenticated to Facebook.")
+			log("User authenticated to Facebook.");
 		
 			// update login box, start fetching profile photo
 			updateLogin(true);
@@ -88,23 +91,34 @@ function start() {
 }
 
 
-function processPhoto(picture) {
+function processPhoto(picture, id, trialNum) {
+	if (trialNum == null) {
+		trialNum = 0;
+	}
 	$.getImageData({url:picture,
 		success: function (image) {
 			photos.push(image);
-			log('Fetched and processed photo ' + ++fetchCount + '.');
-			$("#photo-stats").html(photos.length + " of " + totalPhotos + " photo(s) loaded")
+			log('Fetched and processed photo ' + ++fetchCount[id] + '.');
+			$("#stats-photos-" + id).html(fetchCount[id]);
+			$("#stats-photos").html(photos.length);
 			lookHere("#stats");
 		},
 		error: function (xhr, text_status) {
-			
+			if (trialNum > 5) {
+				log('Failed to process picture of ' + id + ' after 5 tries.');
+			} else {
+				// console.log(text_status);
+				setTimeout(function() {
+					processPhoto(picture, id, trialNum+1);
+				}, 500);
+			}
 		}
 	});
 }
 
 
 function fetchProfilePhoto() {
-	log('Fetching profile picture ...');
+	log('Fetching profile photo ...');
 	FB.api('/me/albums', function(response) {
 	    for (album in response.data) {
 			if (response.data[album].type == 'profile') {
@@ -113,18 +127,24 @@ function fetchProfilePhoto() {
 					$.getImageData({url:profile,
 						success: function (image) {
 							profileImg = image;
-							$("#original").hide();
-							$("#original").append(profileImg);
+							original = $("#original");
+							original.hide();
+							original.append(profileImg);
 							$("#profile-loading").hide();
-							$("#original").fadeIn(300);
+							original.css('margin-left', -1 * Math.round(profileImg.width / 2));
+							original.fadeIn(300);
 							log('Finished fetching profile picture.');
+							
+							profileReady = true;
+							readyForMosaic();
 							
 							// set content height and width based on picture
 							$("#content").height(profileImg.height + 10);
 							$("#content").width(profileImg.width + 10);
 						},
 						error: function (xhr, text_status) {
-							
+							log('Failed to process profile photo. Trying again ...');
+							fetchProfilePhoto();
 						}
 					});
 				}); // end of getting photos from album
@@ -135,17 +155,17 @@ function fetchProfilePhoto() {
 
 function fetchPhotosOfMe() {
 	log('Fetching photos of the user ...');
+	fetchCount['me'] = 0;
 	FB.api('/me/photos', {'offset': photosOfMeOffset, 'limit': 500}, function(response) {
 		log('Fetched ' + response.data.length + ' additional photos.');
 		totalPhotos += response.data.length;
 		photosOfMeOffset += response.data.length;
 		for (pic in response.data) {
 			picture = response.data[pic].picture;
-			processPhoto(picture);
+			processPhoto(picture, 'me');
 			
-			// show build mosaic button as soon as we have some photos
-			$("#photos-loading").hide();
-			$("#ideal-mosaic-control").show();
+			photosReady = true;
+			readyForMosaic();
 		}
     }); // end of getting 
 }
@@ -154,7 +174,7 @@ function fetchMyPhotos() {
 	log('Fetching photos owned by the user ...');
 	FB.api('/me/albums', {'limit': 20}, function (response) {
 		for (album in response.data) {
-			FB.api('/' + response.data[album]['id'] + '/photos', {'limit': 250}, function (response) {
+			FB.api('/' + response.data[album]['id'] + '/photos', {'limit': 500}, function (response) {
 				for (pic in response.data) {
 					picture = response.data[pic].picture;
 					processPhoto(picture);
@@ -174,15 +194,17 @@ function fetchFriends() {
 		friends.sort(friendSort);
 		for (index in friends) {
 			// entry = $("<li class='friend' id='" + friends[index]['id'] + "'><img class='friend-profile' id='img-" + friends[index]['id'] + "' />" + friends[index]['name'] + "</li>");
-			entry = $("<li class='friend' id='" + friends[index]['id'] + "'>" + friends[index]['name'] + "</li>");
+			entry = $("<li class='friend' id='" + friends[index]['id'] + "'> " + friends[index]['name'] + "</li>");
 			entry.click(function() {
 				id = $(this).attr('id');
+				name = $(this).text()
 				filterField = $("#friend-filter");
-				filterField.val('');
-				filterField.change();
 				filterField.hide();
+				filterField.val('');
+				filterField.trigger('change');
+				filterField.blur();
 				$("#friend-loading").show();
-				fetchPhotosOfFriend(id);
+				fetchPhotosOfFriend(id, name);
 			});
 			$("#friend-list").append(entry);
 			FB.api('/' + friends[index]['id'] + '/albums/', function(response) {
@@ -190,17 +212,20 @@ function fetchFriends() {
 					if (response.data[albumIndex]['type'] == 'profile') {
 						album = response.data[albumIndex];
 						FB.api('/' + album['id'] + '/photos', {'limit': 1}, function(response) {
-							fetchedFriends++;
-							$("#friend-stats").html(fetchedFriends + " of " + totalFriends + " friend(s) loaded");
-							lookHere("#stats");
-							id = response.data[0]['from']['id'];
-							log('Fetched profile of friend with id ' + id);
-							img = $('<img src="' + response.data[0]['picture'] + '" class="friend-profile" />');
-							$('#' + id).prepend(img);
+							// only try to get it if they have a profile pic
+							if (response.data) {
+								fetchedFriends++;
+								$("#stats-friends").html(fetchedFriends + " friend(s) loaded");
+								lookHere("#stats");
+								id = response.data[0]['from']['id'];
+								log('Fetched friend with id ' + id);
+								img = $('<img src="' + response.data[0]['picture'] + '" class="friend-profile" />');
+								$('#' + id).prepend(img);
 							
-							// show the search field, since it's been hidden since the start
-							$("#friend-loading").hide();
-							$("#friend-filter").show();
+								// show the search field, since it's been hidden since the start
+								$("#friend-loading").hide();
+								$("#friend-filter").show();
+							}
 						});
 					}
 				}
@@ -212,16 +237,20 @@ function friendSort(a, b) {
 	return a['name'].localeCompare(b['name']);
 }
 
-function fetchPhotosOfFriend(friendId) {
-	log('Fetching photos of friend with id ' + friendId + ' ...');
-	FB.api('/' + friendId + '/photos', {'limit': 250}, function(response) {
+function fetchPhotosOfFriend(friendID, friendName) {
+	console.log(friendID);
+	fetchCount['' + friendID] = 0;
+	log('Fetching photos of friend with id ' + friendID + ' ...');
+	FB.api('/' + friendID + '/photos', {'limit': 250}, function(response) {
 		log('Fetched ' + response.data.length + ' additional photos.');
 		$("#friend-loading").hide();
 		$("#friend-filter").show();
 		totalPhotos += response.data.length;
+		friendStats = $("<div><span id='stats-photos-" + friendID + "'>0</span> photo(s) of " + friendName + " loaded</div>");
+		$("#stats").append(friendStats);
 		for (pic in response.data) {
 			picture = response.data[pic].picture;
-			processPhoto(picture);
+			processPhoto(picture, friendID);
 		}
     }); // end of getting
 }
