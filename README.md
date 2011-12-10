@@ -1,21 +1,21 @@
 Digital Portrait
 ================
 
-Your profile picture is often quintessential of your online existence. Do the rest of the images attached to your digital self add up to it? Does any of that add up to you?
+Your profile picture is the essence of your online existence. How well does this represent the rest of the images of your digital self?
+
+How well does any of that represent you?
 
 
 TODO
 ----
 
- - slider bar for how opaque / transparent profile picture is
+ - sometimes, picture processing times out
  - Mozilla gradient for #log
- - fix layout for all aspect ratios of profile images
- - first time, profile picture doesn't load without refresh
- - short timeout for mouseout (100ms) ?
- - remove already used friends from list
+ - viewport size and layout
+  - enforce minimum width for the browser window
+  - fix layout for all aspect ratios of profile images
  - Uncaught TypeError: Cannot read property 'from' of undefined @ facebook.js:213
- - enforce minimum width for the browser window
- 
+ - short timeout for mouseout (100ms) ?
 
 
 Notes
@@ -33,13 +33,3 @@ Using Pixastic with:
 
  - Color Histogram
  - Crop
-
-Idea for hiding caching:
-Start with a small number of images, keep increasing the grid and load new images in the background simultaneously.
-
-Possible fixed-width fonts:
-http://www.google.com/webfonts#ReviewPlace:refine/Collection:Lekton|Ubuntu+Mono|Inconsolata|Anonymous+Pro|VT323
-
-Probably using this little color difference finder:
-http://stevehanov.ca/blog/index.php?id=116
-AND, all it did was do sqrt(deltaR^2 + deltaG^2 + deltaB^2), so I'm doing that

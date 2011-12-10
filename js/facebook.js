@@ -196,6 +196,9 @@ function fetchFriends() {
 			// entry = $("<li class='friend' id='" + friends[index]['id'] + "'><img class='friend-profile' id='img-" + friends[index]['id'] + "' />" + friends[index]['name'] + "</li>");
 			entry = $("<li class='friend' id='" + friends[index]['id'] + "'> " + friends[index]['name'] + "</li>");
 			entry.click(function() {
+				// add the used class to make it so we don't select them again
+				$(this).addClass('used');
+				
 				id = $(this).attr('id');
 				name = $(this).text()
 				filterField = $("#friend-filter");

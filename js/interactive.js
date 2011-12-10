@@ -38,7 +38,7 @@ function interactiveInit() {
 			instructions.slideDown();
 			list.find("li:not(:Contains(" + filter + "))").slideUp();
 			// only get the ones with images
-			list.find("li:Contains(" + filter + ")").children('img').parents().slideDown();
+			list.find("li:Contains(" + filter + ")").children('img').parents().not('.used').slideDown();
 		} else {
 			instructions.slideUp();
 			list.find("li").slideUp();
