@@ -87,6 +87,27 @@ function drawMosaicImages(matrix) {
 		currentRow = $("<div class='row'></div>");
 		for (col = 0; col < matrix[row].length; col++) {
 			image = matrix[row][col];
+			console.log($(image))
+			
+			// 
+			var offsetX = 20;
+			var offsetY = 10;
+			$(image).hover(function(e){	
+				var href = this.src;
+				$('<img id="largeImage" src="' + href + '" alt="image" />')
+					.css({'top':e.pageY + offsetY,'left':e.pageX + offsetX})
+					.appendTo('body');
+			}, function(){
+				$('#largeImage').remove();
+			});
+			$('a.hover').mousemove(function(e){
+				$('#largeImage').css({'top':e.pageY + offsetY,'left':e.pageX + offsetX});
+			});
+			$('a.hover').click(function(e){
+				e.preventDefault();
+			});
+			// 
+			
 			currentRow.append(image)
 		}
 		$("#mosaic").append(currentRow);
@@ -186,7 +207,7 @@ function cropToExactSize(image, x, y) {
 
 function makeAndDisplayMosaic(rows, cols) {
 	mat = makeImageMosaicMatrix(profileImg, photos, rows, cols);
-	reset();
+	$("#mosaic").empty();
 	drawMosaicImages(mat);
 }
 

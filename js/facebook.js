@@ -161,7 +161,7 @@ function fetchPhotosOfMe() {
 		totalPhotos += response.data.length;
 		photosOfMeOffset += response.data.length;
 		for (pic in response.data) {
-			picture = response.data[pic].picture;
+			picture = response.data[pic].source;
 			processPhoto(picture, 'me');
 			
 			photosReady = true;
@@ -252,7 +252,7 @@ function fetchPhotosOfFriend(friendID, friendName) {
 		friendStats = $("<div><span id='stats-photos-" + friendID + "'>0</span> photo(s) of " + friendName + " loaded</div>");
 		$("#stats").append(friendStats);
 		for (pic in response.data) {
-			picture = response.data[pic].picture;
+			picture = response.data[pic].source;
 			processPhoto(picture, friendID);
 		}
     }); // end of getting

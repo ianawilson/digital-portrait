@@ -49,14 +49,27 @@ html, body {
 	text-align: center;
 }
 
+/* Images */
+
 #original {
 	position: absolute;
 	opacity: 0.4;
 	top: 5px;
 	left: 50%;
+	z-index: 2;
 }
 #mosaic {
+	position: absolute;
 	padding-top: 5px;
+	left: 50%;
+	margin-left: -240px;
+}
+#largeImage {
+	position: absolute;
+	padding: 8px;
+	background-color: #e3e3e3;
+	border: 1px solid #bfbfbf;
+	height: 250px;
 }
 
 #profile-loading {
