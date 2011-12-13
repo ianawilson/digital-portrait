@@ -9,13 +9,13 @@ How well does any of that represent you?
 TODO
 ----
 
- - sometimes, picture processing times out
+ - "Like" buttons to share!
+  - other social buttons
  - Mozilla gradient for #log
  - viewport size and layout
   - enforce minimum width for the browser window
   - fix layout for all aspect ratios of profile images
  - Uncaught TypeError: Cannot read property 'from' of undefined @ facebook.js:213
- - short timeout for mouseout (100ms) ?
 
 
 Notes
