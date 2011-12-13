@@ -1,18 +1,30 @@
 function makeImage(url) {
 	im = new Image();
 	im.src = url;
+	// force it to load by throwing it in the holding pen
+	$("#holding-pen").append(im);
 	// im.crossOrigin = "anonymous"; // pretty sure this isn't needed any more because of getImageData.php
 	return im;
 }
 
 function averageColor(image) {
 	var hist = {};
+	
+	console.log(image);
+	console.log(image.src);
+	if (image) {
+		Pixastic.process(image, "colorhistogram", {paint:false, returnValue:hist});
+		
+		console.log(hist);
 
-	Pixastic.process(image, "colorhistogram", {paint:false, returnValue:hist});
-
-	ravg = weightedAverage(hist.rvals);
-	gavg = weightedAverage(hist.gvals);
-	bavg = weightedAverage(hist.bvals);
+		ravg = weightedAverage(hist.rvals);
+		gavg = weightedAverage(hist.gvals);
+		bavg = weightedAverage(hist.bvals);
+	} else {
+		ravg = 0;
+		gavg = 0;
+		bavg = 0;
+	}
 	
 	return [Math.round(ravg), Math.round(gavg), Math.round(bavg)];
 }
@@ -62,9 +74,11 @@ function makeRGBMosaicMatrix(originalImage, rows, cols) {
 		matrix[row] = new Array(cols);
 		for (col = 0; col < cols; col++) {
 			// make a copy so we don't lose the original
-			image = makeImage(originalImage.src);
-			cropped = Pixastic.process(image, "crop", {rect: {top: rowSize * row, left: colSize * col, height: rowSize, width: colSize}})
-			matrix[row][col] = averageColor(cropped)
+			// don't make a copy, it seems to be wrecking things
+			// image = makeImage(originalImage.src);
+			// cropped = Pixastic.process(image, "crop", {rect: {top: rowSize * row, left: colSize * col, height: rowSize, width: colSize}})
+			// matrix[row][col] = averageColor(cropped)
+			matrix[row][col] = averageColor(originalImage);
 		}
 	}
 	return matrix;

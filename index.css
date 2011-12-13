@@ -75,6 +75,11 @@ html, body {
 	margin-top: 250px;
 }
 
+#holding-pen * {
+	position: fixed;
+	top: -1000px;
+	left: -1000px;
+}
 
 /**
  * Log and Stats

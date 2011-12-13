@@ -95,25 +95,32 @@ function processPhoto(picture, id, trialNum) {
 	if (trialNum == null) {
 		trialNum = 0;
 	}
-	$.getImageData({url:picture,
-		success: function (image) {
-			photos.push(image);
-			log('Fetched and processed photo ' + ++fetchCount[id] + '.');
-			$("#stats-photos-" + id).html(fetchCount[id]);
-			$("#stats-photos").html(photos.length);
-			lookHere("#stats");
-		},
-		error: function (xhr, text_status) {
-			if (trialNum > 5) {
-				log('Failed to process picture of ' + id + ' after 5 tries.');
-			} else {
-				// console.log(text_status);
-				setTimeout(function() {
-					processPhoto(picture, id, trialNum+1);
-				}, 500);
-			}
-		}
-	});
+	image = makeImage("./getImage.php?url=" + picture);
+	photos.push(image);
+	log('Fetched and processed photo ' + ++fetchCount[id] + '.');
+	$("#stats-photos-" + id).html(fetchCount[id]);
+	$("#stats-photos").html(photos.length);
+	lookHere("#stats");
+	
+	// $.getImageData({url:picture,
+	// 	success: function (image) {
+	// 		photos.push(image);
+	// 		log('Fetched and processed photo ' + ++fetchCount[id] + '.');
+	// 		$("#stats-photos-" + id).html(fetchCount[id]);
+	// 		$("#stats-photos").html(photos.length);
+	// 		lookHere("#stats");
+	// 	},
+	// 	error: function (xhr, text_status) {
+	// 		if (trialNum > 5) {
+	// 			log('Failed to process picture of ' + id + ' after 5 tries.');
+	// 		} else {
+	// 			// console.log(text_status);
+	// 			setTimeout(function() {
+	// 				processPhoto(picture, id, trialNum+1);
+	// 			}, 500);
+	// 		}
+	// 	}
+	// });
 }
 
 
@@ -124,29 +131,52 @@ function fetchProfilePhoto() {
 			if (response.data[album].type == 'profile') {
 				FB.api('/' + response.data[album].id + '/photos', function(response){
 					profile = response.data[0].source;
-					$.getImageData({url:profile,
-						success: function (image) {
-							profileImg = image;
-							original = $("#original");
-							original.hide();
-							original.append(profileImg);
-							$("#profile-loading").hide();
-							original.css('margin-left', -1 * Math.round(profileImg.width / 2));
-							original.fadeIn(300);
-							log('Finished fetching profile picture.');
-							
-							profileReady = true;
-							readyForMosaic();
-							
-							// set content height and width based on picture
-							// $("#content").height(profileImg.height + 10);
-							// $("#content").width(profileImg.width + 10);
-						},
-						error: function (xhr, text_status) {
-							log('Failed to process profile photo. Trying again ...');
-							fetchProfilePhoto();
-						}
-					});
+					width = response.data[0].width
+					profileImg = makeImage("./getImage.php?url=" + profile);
+					original = $("#original");
+					original.hide();
+					original.append($(profileImg));
+					$("#profile-loading").hide();
+					original.css('margin-left', -1 * width / 2);
+					original.fadeIn(300);
+					log('Finished fetching profile picture.');
+					
+					profileReady = true;
+					readyForMosaic();
+					
+					
+					// $.get( '/getImage.php', {'url': profile}, function(data, textStatus, jqXHR) {
+					// 	image = new Image();
+					// 	image.src = "data:image/jpg;base64," + data;
+					// 	$("body").append(image);
+					// 	// console.log(image);
+					// 	// console.log(textStatus);
+					// 	// console.log(jqXHR);
+					// 	// console.log('===========================');
+					// });
+					// $.getImageData({url:profile,
+					// 	success: function (image) {
+					// 		profileImg = image;
+					// 		original = $("#original");
+					// 		original.hide();
+					// 		original.append(profileImg);
+					// 		$("#profile-loading").hide();
+					// 		original.css('margin-left', -1 * Math.round(profileImg.width / 2));
+					// 		original.fadeIn(300);
+					// 		log('Finished fetching profile picture.');
+					// 		
+					// 		profileReady = true;
+					// 		readyForMosaic();
+					// 		
+					// 		// set content height and width based on picture
+					// 		// $("#content").height(profileImg.height + 10);
+					// 		// $("#content").width(profileImg.width + 10);
+					// 	},
+					// 	error: function (xhr, text_status) {
+					// 		log('Failed to process profile photo. Trying again ...');
+					// 		fetchProfilePhoto();
+					// 	}
+					// });
 				}); // end of getting photos from album
 			}
 	    }
