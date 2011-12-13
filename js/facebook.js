@@ -107,13 +107,16 @@ function processPhoto(picture, id, trialNum) {
 			lookHere("#stats");
 			// if we succeed, unpause the queue
 			pauseQueue = false;
+			// log("Resuming image queue; " + processQueue.length + " items left");
 		},
 		error: function (xhr, text_status) {
 			// pause the queue to let us retry
 			pauseQueue = true;
+			// log("Pausing image queue due to error");
 			if (trialNum > 5) {
 				pauseQueue = false;
-				log('Failed to process picture of ' + id + ' after 5 tries.');
+				// log("Resuming image queue; " + processQueue.length + " items left");
+				// log('Failed to process picture of ' + id + ' after 5 tries.');
 			} else {
 				// console.log(text_status);
 				setTimeout(function() {

@@ -73,6 +73,10 @@ html, body {
 	height: 250px;
 }
 
+#mosiac img {
+	cursor: pointer;
+}
+
 #profile-loading {
 	margin-top: 250px;
 	position: absolute;
