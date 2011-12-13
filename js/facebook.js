@@ -105,6 +105,8 @@ function processPhoto(picture, id, trialNum) {
 			$("#stats-photos-" + id).html(fetchCount[id]);
 			$("#stats-photos").html(photos.length);
 			lookHere("#stats");
+			// if we succeed, unpause the queue
+			pauseQueue = false;
 		},
 		error: function (xhr, text_status) {
 			// pause the queue to let us retry
