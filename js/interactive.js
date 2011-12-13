@@ -89,7 +89,8 @@ function newIdealMosaic() {
 	});
 }
 function showHideOriginal() {
-	$("#original").fadeToggle(300);
+	// $("#original").fadeToggle(300);
+	$("#original").toggle();
 }
 
 function fadeToApp() {

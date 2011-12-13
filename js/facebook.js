@@ -19,7 +19,7 @@ var photosReady = false;
 var profileImg;
 var profileMat;
 
-var name;
+var processQueue = [];
 
 function fbInit() {
     FB.init({ 
@@ -34,6 +34,8 @@ function fbInit() {
 	log("Application initialized.")
 	
 	start();
+	
+	runProcessQueue();
 }
 
 function login() {
@@ -117,6 +119,19 @@ function processPhoto(picture, id, trialNum) {
 }
 
 
+function runProcessQueue() {
+	if (processQueue.length > 0) {
+		item = processQueue.shift();
+		picture = item[0];
+		id = item[1];
+
+		processPhoto(picture, id)
+	}
+	
+	setTimeout(runProcessQueue, 200);
+}
+
+
 function fetchProfilePhoto() {
 	log('Fetching profile photo ...');
 	FB.api('/me/albums', function(response) {
@@ -162,7 +177,8 @@ function fetchPhotosOfMe() {
 		photosOfMeOffset += response.data.length;
 		for (pic in response.data) {
 			picture = response.data[pic].source;
-			processPhoto(picture, 'me');
+			processQueue.push([picture, 'me']);
+			// processPhoto(picture, 'me');
 			
 			photosReady = true;
 			readyForMosaic();
@@ -253,7 +269,8 @@ function fetchPhotosOfFriend(friendID, friendName) {
 		$("#stats").append(friendStats);
 		for (pic in response.data) {
 			picture = response.data[pic].source;
-			processPhoto(picture, friendID);
+			processQueue.push([picture, friendID]);
+			// processPhoto(picture, friendID);
 		}
     }); // end of getting
 }
