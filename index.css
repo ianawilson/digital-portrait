@@ -73,6 +73,9 @@ html, body {
 
 #profile-loading {
 	margin-top: 250px;
+	position: absolute;
+	left: 50%;
+	margin-left: -15px;
 }
 
 
