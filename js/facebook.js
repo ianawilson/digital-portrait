@@ -20,6 +20,7 @@ var profileImg;
 var profileMat;
 
 var processQueue = [];
+var pauseQueue = false;
 
 function fbInit() {
     FB.init({ 
@@ -106,7 +107,10 @@ function processPhoto(picture, id, trialNum) {
 			lookHere("#stats");
 		},
 		error: function (xhr, text_status) {
+			// pause the queue to let us retry
+			pauseQueue = true;
 			if (trialNum > 5) {
+				pauseQueue = false;
 				log('Failed to process picture of ' + id + ' after 5 tries.');
 			} else {
 				// console.log(text_status);
@@ -120,7 +124,7 @@ function processPhoto(picture, id, trialNum) {
 
 
 function runProcessQueue() {
-	if (processQueue.length > 0) {
+	if (!pauseQueue && processQueue.length > 0) {
 		item = processQueue.shift();
 		picture = item[0];
 		id = item[1];

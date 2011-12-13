@@ -9,6 +9,7 @@ How well does any of that represent you?
 TODO
 ----
 
+ - in FF, input box doesn't clear the first time
  - "Like" buttons to share!
   - other social buttons
  - Mozilla gradient for #log

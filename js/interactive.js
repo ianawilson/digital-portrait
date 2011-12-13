@@ -78,8 +78,8 @@ function newMosaic() {
 	makeAndDisplayMosaic(rows, cols);
 }
 function newIdealMosaic() {
-	$("#load-mosaic").hide(function() {
-		$("#mosaic-loading").show(function() {
+	$("#load-mosaic").hide(100, function() {
+		$("#mosaic-loading").show(100, function() {
 			dim = findIdealDimensions(profileImg, photos.length);
 			// log(dim);
 			makeAndDisplayMosaic(dim[0], dim[1]);
