@@ -5,6 +5,13 @@ html, body {
 	background-color: #EEE;
 }
 
+a, a:visited {
+	color: #aaa;
+}
+a:hover, a:active {
+	color: #ccc;
+}
+
 /* backdrops */
 
 .backdrop {
@@ -251,6 +258,9 @@ button {
 #continue {
 	display: none;
 	margin-top: 20px;
+}
+#footer {
+	margin-top: 200px;
 }
 hr {
 	width: 300px;
