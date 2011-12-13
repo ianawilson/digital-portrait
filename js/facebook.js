@@ -139,8 +139,8 @@ function fetchProfilePhoto() {
 							readyForMosaic();
 							
 							// set content height and width based on picture
-							$("#content").height(profileImg.height + 10);
-							$("#content").width(profileImg.width + 10);
+							// $("#content").height(profileImg.height + 10);
+							// $("#content").width(profileImg.width + 10);
 						},
 						error: function (xhr, text_status) {
 							log('Failed to process profile photo. Trying again ...');

@@ -46,7 +46,7 @@ html, body {
 	padding-left: 270px;
 	padding-right: 270px;
 	height: 100%;
-	text-align: center;
+/*	text-align: center;*/
 }
 
 /* Images */
@@ -59,10 +59,9 @@ html, body {
 	z-index: 2;
 }
 #mosaic {
-	position: absolute;
+	position: relative;
 	padding-top: 5px;
 	left: 50%;
-	margin-left: -240px;
 }
 #largeImage {
 	position: absolute;

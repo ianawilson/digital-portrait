@@ -83,11 +83,11 @@ function drawMosaicSwatches(matrix) {
 }
 
 function drawMosaicImages(matrix) {
+	mosaic = $("#mosaic");
 	for (row = 0; row < matrix.length; row++) {
 		currentRow = $("<div class='row'></div>");
 		for (col = 0; col < matrix[row].length; col++) {
 			image = matrix[row][col];
-			console.log($(image))
 			
 			// 
 			var offsetX = 20;
@@ -110,8 +110,10 @@ function drawMosaicImages(matrix) {
 			
 			currentRow.append(image)
 		}
-		$("#mosaic").append(currentRow);
+		mosaic.append(currentRow);
 	}
+	mosaic.width(matrix[0][0][0].width * matrix[0].length);
+	mosaic.css('margin-left', -1 * Math.round(mosaic.width() / 2));
 }
 
 function makeImageMosaicMatrix(template, originalImages, rows, cols) {
